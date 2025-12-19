@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { getAllPosts } from '@/lib/posts'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
+
+const BASE_PATH = '/selfinfo'
 
 export default function Home() {
   const posts = getAllPosts().slice(0, 5) // 최신 5개만 표시
@@ -12,12 +13,10 @@ export default function Home() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
-            <Image 
-              src="/blogicon.png" 
+            <img 
+              src={`${BASE_PATH}/blogicon.png`}
               alt="Blog Icon" 
-              width={128}
-              height={128}
-              className="object-contain"
+              className="h-32 w-32 object-contain"
             />
           </div>
           <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">
