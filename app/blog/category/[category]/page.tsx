@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation'
 export function generateStaticParams() {
   const categories = getAllCategories()
   return categories.map(category => ({
-    category: encodeURIComponent(category),
+    category: category,
   }))
 }
 
@@ -16,11 +16,12 @@ export default function CategoryPage({
 }: {
   params: { category: string }
 }) {
-  const decodedCategory = decodeURIComponent(params.category)
-  const posts = getAllPosts().filter(post => post.category === decodedCategory)
+  // Next.js가 자동으로 URL 디코딩하므로 decodeURIComponent 불필요
+  const category = decodeURIComponent(params.category)
+  const posts = getAllPosts().filter(post => post.category === category)
   const categories = getAllCategories()
   
-  if (!categories.includes(decodedCategory)) {
+  if (!categories.includes(category)) {
     notFound()
   }
   
@@ -28,7 +29,7 @@ export default function CategoryPage({
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-2">
-          카테고리: <span className="text-primary-600 dark:text-primary-400">{decodedCategory}</span>
+          카테고리: <span className="text-primary-600 dark:text-primary-400">{category}</span>
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mb-8">
           {posts.length}개의 글이 있습니다.
