@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation'
 export function generateStaticParams() {
   const tags = getAllTags()
   return tags.map(tag => ({
-    tag: encodeURIComponent(tag),
+    tag: tag,
   }))
 }
 
@@ -16,11 +16,12 @@ export default function TagPage({
 }: {
   params: { tag: string }
 }) {
-  const decodedTag = decodeURIComponent(params.tag)
-  const posts = getAllPosts().filter(post => post.tags.includes(decodedTag))
+  // Next.js가 자동으로 URL 디코딩하므로 decodeURIComponent 불필요
+  const tag = decodeURIComponent(params.tag)
+  const posts = getAllPosts().filter(post => post.tags.includes(tag))
   const tags = getAllTags()
   
-  if (!tags.includes(decodedTag)) {
+  if (!tags.includes(tag)) {
     notFound()
   }
   
@@ -28,7 +29,7 @@ export default function TagPage({
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-2">
-          태그: <span className="text-primary-600 dark:text-primary-400">#{decodedTag}</span>
+          태그: <span className="text-primary-600 dark:text-primary-400">#{tag}</span>
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mb-8">
           {posts.length}개의 글이 있습니다.
