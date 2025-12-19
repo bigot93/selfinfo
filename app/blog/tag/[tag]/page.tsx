@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation'
 export function generateStaticParams() {
   const tags = getAllTags()
   return tags.map(tag => ({
-    tag: tag,
+    tag: encodeURIComponent(tag),
   }))
 }
 
