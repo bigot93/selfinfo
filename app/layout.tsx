@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'My Blog',
   description: 'A beautiful blog built with Next.js',
   icons: {
-    icon: '/icon.png',
+    icon: '/selfinfo/icon.png',
   },
 }
 
